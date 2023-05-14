@@ -1,27 +1,15 @@
 import { json } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
 import { LoaderFunction } from "react-router"
+import { getPosts } from "~/models/post.server"
 
 type Post = {
   title: string,
   content: string
 }
 
-export const loader: LoaderFunction = () => {
-  const posts = [
-    {
-      title: 'A',
-      content: 'Co'
-    },
-    {
-      title: 'B',
-      content: 'Co 2'
-    },
-    {
-      title: 'C',
-      content: 'Co 3'
-    },
-  ]
+export const loader: LoaderFunction = async () => {
+  const posts = await getPosts()
   return json({ posts })
 }
 
